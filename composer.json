@@ -1,0 +1,15 @@
+{
+    "name": "howkins/console",
+    "type": "project",
+    "require": {
+        "vlucas/phpdotenv": "^2.4"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Georgi Zhelezov",
+            "email": "howkinss@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}

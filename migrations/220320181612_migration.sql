@@ -1,0 +1,1 @@
+select * from public.usr limit 1;

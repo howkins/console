@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+require(__DIR__ . '/vendor/autoload.php');
+require('./conf.php');
+require('./Console.php');
+require('./Commands.php');
+
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
+
+const COMMANDS_DIR = __DIR__.DIRECTORY_SEPARATOR.'code/classes/console/commands/';
+
+$console = new Console($_SERVER['argv']);
+$commands = new Commands();
+
+spl_autoload_register(function ($class_name) use($commands) {
+  include COMMANDS_DIR.$class_name . '.php';
+});
+
+$commandClasses = array_diff(scandir(COMMANDS_DIR), array('..', '.'));
+foreach ($commandClasses as $commandClass) {
+  $commandClass = basename(COMMANDS_DIR.$commandClass, '.php');
+  $commands->setCommand(new $commandClass());
+}
+
+$console->setCommands($commands);
+$console->run();
+exit();
